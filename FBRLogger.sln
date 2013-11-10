@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBRLogger", "FBRLogger\FBRLogger.csproj", "{788A4B26-49AB-47B1-84D2-C1E7EB4F33BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBRLogger.Tests", "FBRLoggerTests\FBRLogger.Tests.csproj", "{9F80D2BA-0733-4295-BC88-8A94225E40BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBRLogger.Log4ViewReceiver", "FBRLogger.Log4ViewReceiver\FBRLogger.Log4ViewReceiver.csproj", "{ACA117DD-70B9-4F1F-B65A-C73B36D8C16B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBRLogger.NLogTarget", "FBRLogger.NLogTarget\FBRLogger.NLogTarget.csproj", "{BC7D9250-5A6A-46E2-A982-411B47FEA9EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBRLogger.Runner", "FBRLogger.Runner\FBRLogger.Runner.csproj", "{96030111-DB6C-42AC-AEC8-6DD7D649DCAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{C9CDF23B-ABE2-4CFA-BC73-3AC9A4D6F4A4}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\Logging systems bench results.txt = Docs\Logging systems bench results.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{788A4B26-49AB-47B1-84D2-C1E7EB4F33BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{788A4B26-49AB-47B1-84D2-C1E7EB4F33BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{788A4B26-49AB-47B1-84D2-C1E7EB4F33BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{788A4B26-49AB-47B1-84D2-C1E7EB4F33BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F80D2BA-0733-4295-BC88-8A94225E40BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F80D2BA-0733-4295-BC88-8A94225E40BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F80D2BA-0733-4295-BC88-8A94225E40BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F80D2BA-0733-4295-BC88-8A94225E40BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACA117DD-70B9-4F1F-B65A-C73B36D8C16B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACA117DD-70B9-4F1F-B65A-C73B36D8C16B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACA117DD-70B9-4F1F-B65A-C73B36D8C16B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACA117DD-70B9-4F1F-B65A-C73B36D8C16B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC7D9250-5A6A-46E2-A982-411B47FEA9EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC7D9250-5A6A-46E2-A982-411B47FEA9EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC7D9250-5A6A-46E2-A982-411B47FEA9EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC7D9250-5A6A-46E2-A982-411B47FEA9EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96030111-DB6C-42AC-AEC8-6DD7D649DCAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96030111-DB6C-42AC-AEC8-6DD7D649DCAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96030111-DB6C-42AC-AEC8-6DD7D649DCAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96030111-DB6C-42AC-AEC8-6DD7D649DCAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

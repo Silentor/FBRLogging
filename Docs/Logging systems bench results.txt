@@ -1,0 +1,6 @@
+Samsung Galaxy S3
+
+UnityEngine.Debug.Log                 Memory allocation 3.5 KB     time  3.23 msec
+FBRLogger (stack trace)               Memory allocation 1.8 KB     time  0.79 msec
+FBRLogger (stack trace + exception)   Memory allocation 4.1 KB     time  0.86 msec
+FBRLogger (no stack no exception)     Memory allocation 9 B        time  0.37 msec
