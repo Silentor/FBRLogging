@@ -29,7 +29,7 @@ namespace Silentor.FBRLogger
         }
 
         /// <summary>
-        /// Send message to remote log viewer
+        /// Send message to remote log viewer. Thread-safe
         /// </summary>
         /// <param name="message"></param>
         public void Send(LogMessage message)
@@ -47,8 +47,11 @@ namespace Silentor.FBRLogger
         /// </summary>
         public void Dispose()
         {
-            _socket.Close();
-            _dataBuf.Close();
+            lock (_locker)
+            {
+                _socket.Close();
+                _dataBuf.Close();
+            }
         }
     }
 }

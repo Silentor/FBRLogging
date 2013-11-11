@@ -45,6 +45,20 @@ namespace Silentor.FBRLogger
         }
 
         /// <summary>
+        /// Preferred constructor for convertation from some another log message format
+        /// </summary>
+        /// <param name="counter"></param>
+        /// <param name="logger"></param>
+        /// <param name="message"></param>
+        /// <param name="level"></param>
+        /// <param name="stack"></param>
+        /// <param name="exception"></param>
+        public LogMessage(string logger, string message, LogLevel level, string stack, Exception exception)
+            : this(_counter++, logger, message, level, stack, exception)
+        {
+        }
+
+        /// <summary>
         /// Deserializing constructor
         /// </summary>
         /// <param name="counter"></param>

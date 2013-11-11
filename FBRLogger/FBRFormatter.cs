@@ -63,7 +63,7 @@ namespace Silentor.FBRLogger
             /// <returns></returns>
             public LogMessage Deserialize()
             {
-                if (_writer == null) throw new InvalidOperationException("Serialization stream is not provided!");
+                if (_reader == null) throw new InvalidOperationException("Serialization stream is not provided!");
 
                 var newMsg = new LogMessage(
                     _reader.ReadUInt32(),               //Counter

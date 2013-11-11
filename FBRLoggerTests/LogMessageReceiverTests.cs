@@ -15,29 +15,30 @@ namespace Silentor.FBRLogger.Tests
         public void ReceivePackTest()
         {
             //Arrange
-            var msg = new LogMessage("Test.Logger", "Test message", LogMessage.LogLevel.Fatal);
             var result = new List<LogMessage>();
-            var sender = new LogMessageSender("127.0.0.1", 9999);
-            var receiver = new LogMessageReceiver(9999);
-            receiver.Start();
+            var sender = new LogMessageSender("127.0.0.2", 9997);
+            var receiver = new LogMessageReceiver(9997);
 
-            receiver.MessageReceived += (thisReceiver, receiverMsg, host) => result.Add(receiverMsg);
+            receiver.MessageReceived += (thisReceiver, receiverMsg, host) => 
+                result.Add(receiverMsg);
 
             //Act
             for (var i = 0; i < 10; i++)
-                sender.Send(msg);
+                sender.Send(new LogMessage("Test.Logger", "Message " + (i + 1), LogMessage.LogLevel.Trace, false));
 
-            //Assert
+            receiver.Start();
+
             for (var i = 0; i < 10; i++)
             {
                 Thread.Sleep(100);
                 if (result.Count == 10) break;
             }
 
-            Assert.That(result.Count,Is.EqualTo(10));
-            Assert.That(result.All(m => m.Level == LogMessage.LogLevel.Fatal));
+            //Assert
+            Assert.That(result.Count, Is.EqualTo(10));
+            Assert.That(result.All(m => m.Level == LogMessage.LogLevel.Trace));
             Assert.That(result.All(m => m.Logger == "Test.Logger"));
-            Assert.That(result.All(m => m.Message == "Test message"));
+            Assert.That(result.All(m => m.Message.StartsWith("Message")));
 
             sender.Dispose();
             receiver.Dispose();

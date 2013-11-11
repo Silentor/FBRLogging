@@ -18,8 +18,8 @@ namespace Silentor.FBRLogger.Tests
             //Arrange
             var msg = new LogMessage("Test.Logger", "Test message", LogMessage.LogLevel.Fatal, true, new Exception());
             var msg2 = new LogMessage("1", "2");     //to satisfy compiler
-            var sender = new LogMessageSender("127.0.0.1", 9999);
-            var receiver = new LogMessageReceiver(9999);
+            var sender = new LogMessageSender("127.0.0.1", 9995);
+            var receiver = new LogMessageReceiver(9995);
             receiver.Start();
 
             receiver.MessageReceived += (thisReceiver, receiverMsg, host) =>
@@ -50,7 +50,7 @@ namespace Silentor.FBRLogger.Tests
         public void DisposeTest()
         {
             //Arrange
-            var sender = new LogMessageSender("127.0.0.1", 9999);
+            var sender = new LogMessageSender("127.0.0.1", 9996);
             sender.Dispose();
 
             //Act

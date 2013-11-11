@@ -61,6 +61,7 @@ namespace Silentor.FBRLogger.Log4ViewReceiver
                     Exception = logMessage.Exception,
                     Thread = logMessage.Thread.ToString(),
                     StackTrace = logMessage.Stack,
+                    LogSource = logMessage.Stack,
                     OriginalTime = logMessage.TimeStamp,
                     Key = logMessage.Counter,
                     Host = senderHost

@@ -49,6 +49,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="LogMessageTests.cs" />
     <Compile Include="FormatterTests.cs" />
     <Compile Include="LogMessageReceiverTests.cs" />
     <Compile Include="LogMessageSenderTests.cs" />

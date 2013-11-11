@@ -13,7 +13,7 @@ namespace Silentor.FBRLogger.Runner
         static void Main(string[] args)
         {
             var levels = Enum.GetValues(typeof (LogMessage.LogLevel)) as LogMessage.LogLevel[];
-            var sender = new LogMessageSender("127.0.0.1", 9998);
+            var sender = new LogMessageSender("127.0.0.2", 9998);
             
             for (int i = 0; i < 10; i++)
             {
