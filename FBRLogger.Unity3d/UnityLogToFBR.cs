@@ -27,7 +27,7 @@ public class UnityLogToFBR : MonoBehaviour
         //Works only in development mode
         if (!Debug.isDebugBuild)
         {
-            gameObject.SetActive(false);
+            enabled = false;
             Destroy(this);
             return;
         }
@@ -46,7 +46,8 @@ public class UnityLogToFBR : MonoBehaviour
 
     void OnDestroy()
     {
-        _sender.Dispose();
+        if(_sender != null)
+            _sender.Dispose();
     }
 
     void OnEnable()
