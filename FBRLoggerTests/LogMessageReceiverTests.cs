@@ -12,8 +12,10 @@ namespace Silentor.FBRLogger.Tests
     public class LogMessageReceiverTests
     {
         [Test()]
-        public void ReceivePackTest()
+        public void SendReceiveStressTest()
         {
+            const int EventsCount = 100;
+
             //Arrange
             var result = new List<LogMessage>();
             var sender = new LogMessageSender("127.0.0.2", 9997);
@@ -23,19 +25,19 @@ namespace Silentor.FBRLogger.Tests
                 result.Add(receiverMsg);
 
             //Act
-            for (var i = 0; i < 10; i++)
-                sender.Send(new LogMessage("Test.Logger", "Message " + (i + 1), LogMessage.LogLevel.Trace, false));
+            for (var i = 0; i < EventsCount; i++)
+                sender.Send(new LogMessage("Test.Logger", "Message " + (i + 1), LogMessage.LogLevel.Trace, true));
 
             receiver.Start();
 
-            for (var i = 0; i < 10; i++)
+            for (var i = 0; i < 20; i++)
             {
                 Thread.Sleep(100);
-                if (result.Count == 10) break;
+                if (result.Count == EventsCount) break;
             }
 
             //Assert
-            Assert.That(result.Count, Is.EqualTo(10));
+            Assert.That(result.Count, Is.EqualTo(EventsCount));
             Assert.That(result.All(m => m.Level == LogMessage.LogLevel.Trace));
             Assert.That(result.All(m => m.Logger == "Test.Logger"));
             Assert.That(result.All(m => m.Message.StartsWith("Message")));

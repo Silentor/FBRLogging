@@ -25,6 +25,7 @@ namespace Silentor.FBRLogger
         public LogMessageReceiver(int port)
         {
             _socket = new UdpClient(port);
+            _socket.Client.ReceiveBufferSize = 1000000;
 
             _dataBuf = new MemoryStream(1024);
             _formatter = new LogMessage.Formatter(_dataBuf);
