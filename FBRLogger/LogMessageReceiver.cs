@@ -85,7 +85,7 @@ namespace Silentor.FBRLogger
         }
 
         /// <summary>
-        /// Fires when received message
+        /// Fires when received message. Params - this receiver, message and sender's host
         /// </summary>
         public event Action<LogMessageReceiver, LogMessage, string> MessageReceived;
 

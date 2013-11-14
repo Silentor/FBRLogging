@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Silentor.FBRLogger;
 using NUnit.Framework;
@@ -40,7 +41,7 @@ namespace Silentor.FBRLogger.Tests
                 Property("Counter").EqualTo(msg.Counter).And.
                 Property("Level").EqualTo(msg.Level).And.
                 Property("TimeStamp").EqualTo(msg.TimeStamp).
-                After(1000));
+                After(500));
 
             sender.Dispose();
             receiver.Dispose();
@@ -56,6 +57,36 @@ namespace Silentor.FBRLogger.Tests
             //Act
             //Assert
             Assert.That(() => sender.Send(new LogMessage("a", "b")), Throws.Exception);
+        }
+
+        [Test()]
+        public void MiultipleSendersTest()
+        {
+            //Arrange
+            var received = new List<LogMessage>();
+            var sender1 = new LogMessageSender("127.0.0.1", 9994);
+            var sender2 = new LogMessageSender("127.0.0.1", 9994);
+            var receiver = new LogMessageReceiver(9994);
+            receiver.MessageReceived += (messageReceiver, message, arg3) => received.Add(message);
+            receiver.Start();
+
+            //Act
+            sender1.Send(new LogMessage("logger1", "Test msg"));
+            sender2.Send(new LogMessage("logger2", "Test msg"));
+
+            for (var i = 0; i < 10; i++)
+            {
+                Thread.Sleep(100);
+                if (received.Count == 2) break;
+            }
+
+            //Assert
+            Assert.That(received.Count, Is.EqualTo(2));
+            Assert.That(received.First().Logger, Is.Not.EqualTo(received.Last().Logger));
+
+            sender1.Dispose();
+            sender2.Dispose();
+            receiver.Dispose();
         }
     }
 }

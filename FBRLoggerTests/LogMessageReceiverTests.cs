@@ -25,6 +25,7 @@ namespace Silentor.FBRLogger.Tests
                 result.Add(receiverMsg);
 
             //Act
+            
             for (var i = 0; i < EventsCount; i++)
                 sender.Send(new LogMessage("Test.Logger", "Message " + (i + 1), LogMessage.LogLevel.Trace, true));
 
