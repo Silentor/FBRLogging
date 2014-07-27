@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -9,10 +10,10 @@ using Silentor.FBRLogger;
 using NUnit.Framework;
 namespace Silentor.FBRLogger.Tests
 {
-    [TestFixture()]
+    [TestFixture]
     public class LogMessageSenderTests
     {
-        [Test()]
+        [Test]
         public void SendAndReceiveTest()
         {
             //Arrange
@@ -44,6 +45,33 @@ namespace Silentor.FBRLogger.Tests
 
             sender.Dispose();
             receiver.Dispose();
+        }
+
+        [Test]
+        public void ConcurrentSenderBenchmark()
+        {
+            var timer = Stopwatch.StartNew();
+
+            var tasks = new Task[5];
+            for(var i = 0; i < 5; i++)
+            {
+                tasks[i] = Task.Run(async () =>
+                {
+                    var sender = new LogMessageSender("127.0.0.1", 9995);
+                    var msg = new LogMessage("Test.Logger", "Test message", LogMessage.LogLevel.Fatal, true,
+                        new Exception());
+                    var rnd = new Random();
+
+                    for (int j = 0; j < 10000; j++)
+                    {
+                        sender.Send(msg);
+                        //await Task.Delay(rnd.Next(1, 50));
+                    }
+                });
+            }
+
+            Task.WaitAll(tasks);
+            Trace.TraceInformation("Time: {0}", timer.ElapsedMilliseconds);
         }
 
         [Test()]

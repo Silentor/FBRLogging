@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Silentor.FBRLogger
 {
@@ -8,7 +9,7 @@ namespace Silentor.FBRLogger
     /// </summary>
     public partial struct LogMessage
     {
-        private static uint _counter = 0;
+        private static int _counter = 0;
 
         /// <summary>
         /// Preferred constructor for manual log message creation
@@ -19,7 +20,7 @@ namespace Silentor.FBRLogger
         /// <param name="includeStack"></param>
         /// <param name="exception"></param>
         public LogMessage(string logger, string message, LogLevel level = LogLevel.Log, bool includeStack = true, Exception exception = null)
-            : this(_counter++, logger, message, level, includeStack ? new StackTrace(1, true).ToString() : string.Empty, exception)
+            : this(GetNextId(), logger, message, level, includeStack ? new StackTrace(1, true).ToString() : string.Empty, exception)
         {
         }
 
@@ -32,7 +33,7 @@ namespace Silentor.FBRLogger
         /// <param name="level"></param>
         /// <param name="stack"></param>
         /// <param name="exception"></param>
-        public LogMessage(uint counter, string logger, string message, LogLevel level, string stack, Exception exception) : this()
+        public LogMessage(int counter, string logger, string message, LogLevel level, string stack, Exception exception) : this()
         {
             Counter = counter;
             TimeStamp = DateTime.Now;
@@ -47,14 +48,13 @@ namespace Silentor.FBRLogger
         /// <summary>
         /// Preferred constructor for convertation from some another log message format
         /// </summary>
-        /// <param name="counter"></param>
         /// <param name="logger"></param>
         /// <param name="message"></param>
         /// <param name="level"></param>
         /// <param name="stack"></param>
         /// <param name="exception"></param>
         public LogMessage(string logger, string message, LogLevel level, string stack, Exception exception)
-            : this(_counter++, logger, message, level, stack, exception)
+            : this(GetNextId(), logger, message, level, stack, exception)
         {
         }
 
@@ -69,7 +69,7 @@ namespace Silentor.FBRLogger
         /// <param name="threadId"></param>
         /// <param name="stack"></param>
         /// <param name="exception"></param>
-        private LogMessage(uint counter, long dateTime, string logger, string message, LogLevel level, int threadId, string stack, string exception)
+        private LogMessage(int counter, long dateTime, string logger, string message, LogLevel level, int threadId, string stack, string exception)
             : this()
         {
             Counter = counter;
@@ -85,7 +85,7 @@ namespace Silentor.FBRLogger
         public enum LogLevel {Trace, Debug, Log, Warning, Error, Fatal}
 
         //Required fileds
-        public uint Counter { get; private set; }
+        public int Counter { get; private set; }
         public string Logger { get; private set; }
         public string Message { get; private set; }
         public LogLevel Level { get; private set; }
@@ -105,6 +105,11 @@ namespace Silentor.FBRLogger
             LogLevel.Error,
             LogLevel.Fatal,
         };
+
+        private static int GetNextId()
+        {
+            return Interlocked.Increment(ref _counter);
+        }
 
     }
 }

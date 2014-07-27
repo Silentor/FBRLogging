@@ -18,9 +18,6 @@ namespace Silentor.FBRLogger
                 get { return _writer.BaseStream; }
             }
 
-            private readonly BinaryWriter _writer;
-            private readonly BinaryReader _reader;
-
             /// <summary>
             /// Stream oriented
             /// </summary>
@@ -66,7 +63,7 @@ namespace Silentor.FBRLogger
                 if (_reader == null) throw new InvalidOperationException("Serialization stream is not provided!");
 
                 var newMsg = new LogMessage(
-                    _reader.ReadUInt32(),               //Counter
+                    _reader.ReadInt32(),               //Counter
                     _reader.ReadInt64(),                //DateTime
                     _reader.ReadString(),               //Logger name
                     _reader.ReadString(),               //Message
@@ -82,6 +79,9 @@ namespace Silentor.FBRLogger
                 _writer.Close();
                 _reader.Close();
             }
+
+            private readonly BinaryWriter _writer;
+            private readonly BinaryReader _reader;
         }
     }
 }
