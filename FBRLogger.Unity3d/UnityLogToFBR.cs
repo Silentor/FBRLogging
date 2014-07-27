@@ -2,13 +2,17 @@
 using UnityEngine;
 using System.Collections;
 using Silentor.FBRLogger;
+using Object = UnityEngine.Object;
 
+/// <summary>
+/// Simple script to intercept Unity log output and send to FBR
+/// </summary>
 public class UnityLogToFBR : MonoBehaviour
 {
     /// <summary>
     /// IP address of log viewer application host
     /// </summary>
-    public string LogViewerHost = "127.0.0.1";
+    public string LogViewerHost = "127.0.0.2";
 
     /// <summary>
     /// Port of log viewer application host
@@ -21,6 +25,7 @@ public class UnityLogToFBR : MonoBehaviour
     public string LoggerName = "Unity.Log";
 
     private LogMessageSender _sender;
+    private static UnityLogToFBR _instance;
 
     void Awake()
     {
@@ -31,6 +36,16 @@ public class UnityLogToFBR : MonoBehaviour
             Destroy(this);
             return;
         }
+
+        //Singletone checking
+        if (_instance != null && _instance != this)
+        {
+            enabled = false;
+            Destroy(this);
+            return;
+        }
+
+        _instance = this;
 
         try
         {
